@@ -12,8 +12,8 @@ public class Template {
 
     private static String DRIVER = "oracle.jdbc.driver.OracleDriver";
     private static String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-    private static String USER = "C##OHGIRAFFERS";
-    private static String PASSWORD = "OHGIRAFFERS";
+    private static String USER = "REMIXHOMEWORK";
+    private static String PASSWORD = "REMIXHOMEWORK";
 
     private static SqlSessionFactory sqlSessionFactory;
 

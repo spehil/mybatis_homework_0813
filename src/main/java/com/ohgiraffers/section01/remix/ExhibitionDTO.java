@@ -1,5 +1,6 @@
 package com.ohgiraffers.section01.remix;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class ExhibitionDTO {
@@ -13,8 +14,8 @@ public class ExhibitionDTO {
 
     private int code;
     private  String exhibitionName;
-    private Date exhibitionStart;
-    private Date exhibitionEnd;
+    private LocalDate exhibitionStart;
+    private LocalDate exhibitionEnd;
 
     private int price;
 
@@ -23,7 +24,7 @@ public class ExhibitionDTO {
     public ExhibitionDTO() {
     }
 
-    public ExhibitionDTO(int code, String exhibitionName, Date exhibitionStart, Date exhibitionEnd, int price, int regionCode) {
+    public ExhibitionDTO(int code, String exhibitionName, LocalDate exhibitionStart, LocalDate exhibitionEnd, int price, int regionCode) {
         this.code = code;
         this.exhibitionName = exhibitionName;
         this.exhibitionStart = exhibitionStart;
@@ -48,32 +49,32 @@ public class ExhibitionDTO {
         this.exhibitionName = exhibitionName;
     }
 
-    public Date getExhibitionStart() {
+    public LocalDate getExhibitionStart() {
         return exhibitionStart;
     }
 
-    public void setExhibitionStart(Date exhibitionStart) {
+    public void setExhibitionStart(LocalDate exhibitionStart) {
         this.exhibitionStart = exhibitionStart;
     }
 
-    public Date getExhibitionEnd() {
+    public LocalDate getExhibitionEnd() {
         return exhibitionEnd;
     }
 
-    public void setExhibitionEnd(Date exhibitionEnd) {
+    public void setExhibitionEnd(LocalDate exhibitionEnd) {
         this.exhibitionEnd = exhibitionEnd;
     }
 
-    public int getPrice(int price) {
-        return this.price;
+    public int getPrice() {
+        return price;
     }
 
     public void setPrice(int price) {
         this.price = price;
     }
 
-    public int getRegionCode(int regionCode) {
-        return this.regionCode;
+    public int getRegionCode() {
+        return regionCode;
     }
 
     public void setRegionCode(int regionCode) {

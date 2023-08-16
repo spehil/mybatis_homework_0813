@@ -11,8 +11,6 @@ public class ExhibitionService {
     private ExhibitionMapper exhibitionMapper;
     public  List<ExhibitionDTO> selectAllExhibition() {
 
-
-
             SqlSession sqlSession = getSqlSession();
 
             exhibitionMapper = sqlSession.getMapper(ExhibitionMapper.class);
@@ -28,10 +26,46 @@ public class ExhibitionService {
 
 
         SqlSession sqlSession = getSqlSession();
+        exhibitionMapper = sqlSession.getMapper(ExhibitionMapper.class);
 
-        int result = menuDAO.insertMenu(sqlSession, menu);
+        int result = exhibitionMapper.insertExhibition(exhibition);
 
         if(result > 0) {
+            sqlSession.commit();
+        } else {
+            sqlSession.rollback();
+        }
+
+        sqlSession.close();
+
+        return result > 0;
+
+    }
+
+    public boolean modifyExhibition(ExhibitionDTO exhibition) {
+        SqlSession sqlSession = getSqlSession();
+        exhibitionMapper = sqlSession.getMapper(ExhibitionMapper.class);
+
+        int result = exhibitionMapper.updateExhibition(exhibition);
+
+        if (result > 0) {
+            sqlSession.commit();
+        } else {
+            sqlSession.rollback();
+        }
+
+        sqlSession.close();
+
+        return result > 0;
+    }
+
+    public boolean deletexhibition(int code) {
+        SqlSession sqlSession = getSqlSession();
+        exhibitionMapper = sqlSession.getMapper(ExhibitionMapper.class);
+
+        int result = exhibitionMapper.deleteExhibition(code);
+
+        if (result > 0) {
             sqlSession.commit();
         } else {
             sqlSession.rollback();

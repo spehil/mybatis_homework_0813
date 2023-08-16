@@ -2,6 +2,9 @@ package com.ohgiraffers.section01.remix;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +16,7 @@ public class ExhibitionController {
       ExhibitionService exhibitionService = new ExhibitionService();
       PrintResult printResult = new PrintResult();
 
-    SimpleDateFormat formatter = new SimpleDateFormat("yyyy년 MM월 dd일");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 
     public void selectAllExhibition() {
@@ -30,27 +33,20 @@ public class ExhibitionController {
 
     public void registExhibition(Map<String, String> parameter) throws ParseException {
 
-     /*   Scanner sc = new Scanner(System.in);
-        System.out.print("전시회 이름을 입력하세요 : ");
-        String name = sc.nextLine();
-        System.out.print("전시회 시작일을 입력하세요(예: 20230805) : ");
-        String startDay = sc.nextLine();
-        System.out.print("전시회 종료일을 입력하세요(예: 20230805) : ");
-        String endDay = sc.nextLine();
-        System.out.print("전시회 티켓가격을 입력하세요 : ");
-        int price = sc.nextInt();
-        System.out.print("지역 코드를 입력하세요 : ");
-        int regionCode = sc.nextInt();*/
 
         String name = parameter.get("name");
-        Date startDay;
-        Date endDay;
+
+        LocalDate startDay = null;
+        LocalDate endDay = null;
+
         try {
-            startDay = formatter.parse(parameter.get("startDay"));
-            endDay = formatter.parse(parameter.get("endDay"));
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
+            startDay = LocalDate.parse(parameter.get("startDay"), formatter);
+            endDay = LocalDate.parse(parameter.get("endDay"), formatter);
+        } catch (DateTimeParseException e) {
+            // 날짜 형식이 맞지 않는 경우 처리
+            e.printStackTrace();
         }
+
 
         int price = Integer.parseInt(parameter.get("price"));
         int regionCode = Integer.parseInt(parameter.get("regionCode"));
@@ -61,8 +57,8 @@ public class ExhibitionController {
         exhibition.setExhibitionName(name);
         exhibition.setExhibitionStart(startDay);
         exhibition.setExhibitionEnd(endDay);
-        exhibition.getPrice(price);
-        exhibition.getRegionCode(regionCode);
+        exhibition.setPrice(price);
+        exhibition.setRegionCode(regionCode);
 
 
         if (exhibitionService.registExhibition(exhibition)) {
@@ -73,4 +69,38 @@ public class ExhibitionController {
 
 
     }
-}
+
+    public void modifyExhibition(Map<String, String> parameter) {
+
+        int code = Integer.parseInt(parameter.get("code"));
+        String name = parameter.get("name");
+        int price = Integer.parseInt(parameter.get("price"));
+        int regionCode = Integer.parseInt(parameter.get("regionCode"));
+
+        ExhibitionDTO exhibition = new ExhibitionDTO();
+        exhibition.setCode(code);
+        exhibition.setExhibitionName(name);
+        exhibition.setPrice(price);
+        exhibition.setRegionCode(regionCode);
+
+        if(exhibitionService.modifyExhibition(exhibition)) {
+            printResult.printSuccessMessage("update");
+        } else {
+            printResult.printErrorMessage("update");
+        }
+    }
+
+    public void deleteExhibition(Map<String, String> parameter) {
+
+
+            int code = Integer.parseInt(parameter.get("code"));
+
+            if(exhibitionService.deletexhibition(code)) {
+                printResult.printSuccessMessage("delete");
+            } else {
+                printResult.printErrorMessage("delete");
+            }
+
+        }
+
+    }
