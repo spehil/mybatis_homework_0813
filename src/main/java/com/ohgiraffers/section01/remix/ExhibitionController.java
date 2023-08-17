@@ -1,14 +1,11 @@
 package com.ohgiraffers.section01.remix;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 public class ExhibitionController {
 
@@ -103,4 +100,19 @@ public class ExhibitionController {
 
         }
 
+    public void selectExhibitionByPrice(Map<String, String> parameter) {
+
+        int price = Integer.parseInt(parameter.get("price"));
+
+        List<ExhibitionDTO> exhibitionList = exhibitionService.selectExhibitionByPrice(price);
+
+        if(exhibitionList != null) {
+            printResult.printExhibitionList(exhibitionList);
+        } else {
+            printResult.printErrorMessage("selectList");
+        }
+
+
+
     }
+}

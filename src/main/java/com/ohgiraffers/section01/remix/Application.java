@@ -12,9 +12,12 @@ public class Application {
         ExhibitionController exhibitionController = new ExhibitionController();
 
         do{
+
+
+
             System.out.println("========== 메뉴 관리 ==========");
             System.out.println("1. 메뉴 전체 조회");
-//            System.out.println("2. 메뉴 코드로 메뉴 조회");
+            System.out.println("2. 검색어로 전시회 조회");
             System.out.println("2. 신규 메뉴 추가");
             System.out.println("3. 메뉴 수정");
             System.out.println("4. 메뉴 삭제");
@@ -24,12 +27,12 @@ public class Application {
 
             switch(no) {
                 case 1 : exhibitionController.selectAllExhibition(); break;
-           //     case 2 : exhibitionController.selectMenuByCode(inputExhibitionCode()); break;
-                case 2 : exhibitionController.registExhibition(inputExhibition()); break;
-                case 3 : exhibitionController.modifyExhibition(inputModifyExhibition()); break;
-                case 4 : exhibitionController.deleteExhibition(inputExhibitionCode()); break;
-//                default :
-//                    System.out.println("잘못 된 메뉴를 선택하셨습니다.");
+                case 2 : inputExhibitionSearch(); break;
+                case 3 : exhibitionController.registExhibition(inputExhibition()); break;
+                case 4 : exhibitionController.modifyExhibition(inputModifyExhibition()); break;
+                case 5 : exhibitionController.deleteExhibition(inputExhibitionCode()); break;
+               default :
+                   System.out.println("잘못 된 메뉴를 선택하셨습니다.");
             }
         }while(true);
     }
@@ -93,5 +96,88 @@ public class Application {
     }
 
 
+    private static void inputExhibitionSearch() {
+
+        Scanner sc = new Scanner(System.in);
+
+        do {
+
+            System.out.println("=====검색어에 맞는 전시회 조회 =======");
+            System.out.println("1. if로 조회하기");
+            System.out.println("2. choose(when,otherwise)조회하기");
+            System.out.println("3. foreach 조회하기");
+            System.out.println("4. trim(where,set) 조회하기");
+            System.out.println("9. 종료하기");
+            System.out.println("메뉴를 선택하세요 :");
+            int no = sc.nextInt();
+
+            switch (no) {
+
+                case 1:
+                    ifSubMenu();
+                    break;
+//                case 2:
+//                    chooseSubMenu();
+//                    break;
+//                case 3:
+//                    foreachSubMENU();
+//                    break;
+//                case 4:
+//                    trimSubMenu();
+//                    break;
+//                case 9:
+//                    System.out.println("프로그램을 종료합니다");return;
+            }
+        } while (true);
+    }
+
+    private static void ifSubMenu() {
+          Scanner sc = new Scanner(System.in);
+          ExhibitionController exhibitionController = new ExhibitionController();
+
+        do {
+
+            System.out.println("======= if서브 메뉴 ==========");
+            System.out.println("1. 원하는 금액대에 적합한 전시회 보여주기");
+            System.out.println("2. 전시회 이름 혹은 지역명으로 검색하여 전시회 보여주기 ");
+            System.out.println("9. 이전 메뉴로");
+            System.out.println("메뉴 번호를 입력하세요");
+            int no = sc.nextInt();
+
+            switch (no) {
+
+                case 1:
+                    exhibitionController.selectExhibitionByPrice(inputPrice());
+                    break;
+//                case 2:
+//                    menuService.searchMenu(inputSearchCriteria());
+//                    break;
+//
+//                case 9:
+//                    return;
+
+            }
+
+        } while (true);
+    }
+
+    private static Map<String, String> inputPrice() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("검색하실 가격의 최대 금액을 입력해주세요 :");
+        String price = sc.nextLine();
+
+        Map<String,String> parameter = new HashMap<>();
+        parameter.put("price", price);
+
+        return parameter;
+    }
+
 
 }
+
+
+
+
+
+
+
